@@ -1,0 +1,41 @@
+version: "3"
+services:
+  mysql-master:
+    build:
+      context: .
+    image: "slave-mysql:5.7"
+    ports:
+      - "3307:3306"
+    networks:
+      - my-net
+    environment:
+      MYSQL_ROOT_PASSWORD: "rootyzf"
+      MODE: "master"
+      REPLICATION_USER: "rep"
+      REPLICATION_PASSWORD: "repyzf"
+    volumes:
+      - master-data:/var/lib/mysql
+      - ./conf/master/:/etc/mysql/conf.d
+  mysql-slave:
+    build:
+      context: .
+    image: "slave-mysql:5.7"
+    ports:
+      - "3308:3306"
+    networks:
+      - my-net
+    environment:
+      MYSQL_ROOT_PASSWORD: "rootyzf"
+      MODE: "slave"
+      REPLICATION_USER: "rep"
+      REPLICATION_PASSWORD: "repyzf"
+      MASTER_HOST: "mysql-master"
+      MASTER_PORT: "3307"
+    volumes:
+      - slave-data:/var/lib/mysql
+      - ./conf/slave/:/etc/mysql/conf.d
+volumes:
+  master-data:
+  slave-data:
+networks:
+  my-net:

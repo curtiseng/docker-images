@@ -1,0 +1,61 @@
+[mysqld]
+server-id = 11
+log-bin = mysql-bin
+binlog_format=row
+
+sync_binlog = 1
+expire_logs_days=7
+
+# log-slave-updates = ON
+# gtid-mode = ON
+# enforce-gtid-consistency = true
+
+character-set-client-handshake = FALSE
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+init_connect = 'SET NAMES utf8mb4'
+
+innodb_buffer_pool_size = 10G
+wait_timeout = 31536000
+group_concat_max_len = 102400
+sql_mode = ""
+datadir = /var/lib/mysql
+socket = /var/lib/mysql/mysql.sock
+lower_case_table_names = 1
+symbolic-links = 0
+max_connections = 1000
+innodb_buffer_pool_instances     = 2
+innodb_buffer_pool_size = 4096M
+innodb_log_file_size             = 512M
+innodb_log_buffer_size           = 4M
+innodb_flush_method              = O_DIRECT
+innodb_file_per_table            = on
+innodb_flush_log_at_trx_commit   = 1
+innodb_flush_neighbors           = 1
+innodb_write_io_threads          = 4
+innodb_read_io_threads           = 4
+innodb_purge_threads             = 1
+innodb_rollback_on_timeout       = on
+innodb_lock_wait_timeout         = 50
+
+thread_cache_size                = 20
+thread_stack                     = 256K
+query_cache_type                 = off
+query_cache_size                 = 0
+sort_buffer_size                 = 8M
+read_buffer_size                 = 8M
+read_rnd_buffer_size             = 8M
+join_buffer_size                 = 16M
+table_open_cache                 = 2048
+open_files_limit                 = 102400
+tmp_table_size                   = 16M
+max_heap_table_size              = 16M
+max_allowed_packet               = 24M
+
+
+#binlog-ignore-db=mysql #不给从机同步的库(多个写多行)
+#replicate-ignore-db=information_schema
+#replicate-ignore-db=performance_schema
+#replicate-ignore-db=sys
+
+

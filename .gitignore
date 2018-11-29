@@ -1,0 +1,6 @@
+# IDEA
+.idea
+*.war
+*.txt
+# vscode
+.vscode

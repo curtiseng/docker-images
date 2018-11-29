@@ -1,0 +1,26 @@
+version: "3"
+services:
+  tracker:
+    image: "fast-dfs-tacker:5.11"
+    build:
+      context: ./5.11
+      dockerfile: Dockerfile
+    command: tracker
+    networks:
+      - fdfs
+    volumes:
+      - tracker:/var/fdfs
+  storage0:
+    image: "fast-dfs-storage:5.11"
+    build:
+      context: ./5.11
+      dockerfile: Dockerfile
+    command: storage
+    environment:
+      - group: group
+      - domain: storage0
+      - tracker: tracker
+    networks:
+      - fdfs
+    volumes:
+      - tracker:/var/fdfs

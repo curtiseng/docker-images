@@ -1,0 +1,10 @@
+version: "3"
+services:
+  uaa-extraction:
+    image: "docker.cplh.com/swarm_chaos/maxwell:1.14.4"
+    command: [ "/bin/bash", "-c", "bin/maxwell --user=maxwell --password=maxwell --host=192.168.103.113 --producer=kafka --kafka.bootstrap.servers=chaos_kafka1:9092,chaos_kafka2:9092,chaos_kafka3:9092 --kafka_topic=uaa-extract --include_dbs=uaa --gtid_mode=true" ]
+    networks:
+      - my-net
+networks:
+  my-net:
+    external: true

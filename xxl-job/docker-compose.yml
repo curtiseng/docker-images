@@ -1,0 +1,25 @@
+version: "3"
+services:
+  job-admin:
+    image: "docker.cplh.com/swarm_chaos/xxl-job-admin:1.9.1"
+    deploy:
+      replicas: 2
+    ports:
+      - "10011:8080"
+    networks:
+      - my-net
+    depends_on:
+      - job-mysql
+  job-mysql:
+    image: "docker.cplh.com/swarm_chaos/xxl-job-mysql:5.7"
+    networks:
+      - my-net
+    environment:
+      MYSQL_ROOT_PASSWORD: "1qaz@WSX"
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
+networks:
+  my-net:
+    external: true
