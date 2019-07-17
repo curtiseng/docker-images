@@ -15,7 +15,7 @@ services:
     networks:
       - my-net
     environment:
-      MYSQL_ROOT_PASSWORD: "1qaz@WSX"
+      MYSQL_ROOT_PASSWORD: "password
     volumes:
       - mysql-data:/var/lib/mysql
 volumes:
